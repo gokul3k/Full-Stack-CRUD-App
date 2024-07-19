@@ -13,6 +13,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: '#1E88E5',
       color: theme.palette.common.white,
+      fontSize: 18,
     },
     [`&.${tableCellClasses.body}`]: {
       fontSize: 18,
@@ -33,24 +34,24 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     return (
       <TableContainer style={{ display: 'flex', justifyContent: 'center', overflowX: 'auto' }}>
         {props.savedCustomer.length> 0 ? (
-        <Table sx={{ minWidth: 500, maxWidth: '90%' }} aria-label="customized table">
+        <Table sx={{ minWidth: 500, maxWidth: '70%' }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="right">First Name</StyledTableCell>
-              <StyledTableCell align="right">Last Name</StyledTableCell>
-              <StyledTableCell align="right">Age</StyledTableCell>
-              <StyledTableCell align="right">City/Country</StyledTableCell>
-              <StyledTableCell align="right">Edit Row</StyledTableCell>
-              <StyledTableCell align="right">Delete Row</StyledTableCell>
+              <StyledTableCell align="center">First Name</StyledTableCell>
+              <StyledTableCell align="center">Last Name</StyledTableCell>
+              <StyledTableCell align="center">Age</StyledTableCell>
+              <StyledTableCell align="center">City/Country</StyledTableCell>
+              <StyledTableCell align="center">Edit Row</StyledTableCell>
+              <StyledTableCell align="center">Delete Row</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {props.savedCustomer.map((customer, index) => (
               <StyledTableRow key={index}>
-                <StyledTableCell align="right">{customer.FirstName}</StyledTableCell>
-                <StyledTableCell align="right">{customer.LastName}</StyledTableCell>
-                <StyledTableCell align="right">{customer.Age}</StyledTableCell>
-                <StyledTableCell align="right">{customer.Country}</StyledTableCell>
+                <StyledTableCell align="center">{customer.FirstName}</StyledTableCell>
+                <StyledTableCell align="center">{customer.LastName}</StyledTableCell>
+                <StyledTableCell align="center">{customer.Age}</StyledTableCell>
+                <StyledTableCell align="center">{customer.Country}</StyledTableCell>
                 <td> 
                     <Button variant="contained" onClick={() => props.handleUpdateCustomer(customer)}>Edit</Button>
                 </td>
