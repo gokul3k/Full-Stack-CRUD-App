@@ -83,7 +83,7 @@ app.post('/update-customer', (req,res) =>{
 
 app.get('/get-all-customers', (req, res) => {
   // SQL query to select all customers from the database
-  db.query('SELECT * FROM heroku_a4dd5bb9dfba4af.company_customers', (error, results) => {
+  db.query('SELECT * FROM customer_db.company_customers', (error, results) => {
     if (error) {
       // If there's an error, send a server error response
       return res.status(500).send('Error fetching customers');
@@ -100,7 +100,7 @@ app.get('/get-all-customers', (req, res) => {
 app.delete('/delete-customer'), (req, res) => {
   const id= req.body;
   console.log(id)
-  db.query('DELETE FROM heroku_a4dd5bb9dfba4af.company_customers WHERE id =?',
+  db.query('DELETE FROM customer_db.company_customers WHERE id =?',
   [id],
   (error, results) => {
     if (error) {
@@ -115,7 +115,7 @@ app.delete('/delete-customer'), (req, res) => {
 app.delete('/delete-customer', (req, res) => {
   const id = req.body.id;
   // Simulate deletion logic
-  db.query('DELETE FROM heroku_a4dd5bb9dfba4af.company_customers WHERE id =?',
+  db.query('DELETE FROM customer_db.company_customers WHERE id =?',
     [id],
     (error, results) => {
       if (error) {
