@@ -1,24 +1,27 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
+
 const cors = require('cors');
 const bodyParser = require('body-parser')
-const port = 3000;
+const port = process.env.PORT || 3000;
 const mysql = require('mysql')
 
 
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: 'http://localhost:3001'
+  origin: `http://localhost:3001`
 }));
 
 const db = mysql.createConnection({
-  user:"root",
-  host:"localhost",
-  password:"password",
-  database:"customer_db"
+  host:"us-cluster-east-01.k8s.cleardb.net",
+  user:"b5b8b30e90da65",
+  password:"e6c39ac8",
+  database:"heroku_a4dd5bb9dfba4af"
 });
+
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -28,14 +31,14 @@ app.post('/submit-form', (req,res) =>{
   const {FirstName, LastName, Age, Country } = req.body;
 
   db.query(
-    "INSERT INTO COMPANY_CUSTOMERS (FirstName,LastName,Age,Country) VALUES (?,?,?,?)",
+    "INSERT INTO company_customers (FirstName,LastName,Age,Country) VALUES (?,?,?,?)",
     [FirstName, LastName, Age, Country],
     (err,result) =>{
       if (err){
         console.log(err)
       }
       db.query(
-        "SELECT * FROM COMPANY_CUSTOMERS WHERE id = ?", // Replace 'ID' with the actual primary key column name if it's different
+        "SELECT * FROM company_customers WHERE id = ?", // Replace 'ID' with the actual primary key column name if it's different
         [result.insertId],
         (err, selectResult) => {
           if (err) {
@@ -55,14 +58,14 @@ app.post('/update-customer', (req,res) =>{
   const {FirstName, LastName, Age, Country, id} = req.body;
 
   db.query(
-    'UPDATE COMPANY_CUSTOMERS SET FirstName = ?, LastName = ?, Age = ?, Country = ? WHERE id = ?',
+    'UPDATE company_customers SET FirstName = ?, LastName = ?, Age = ?, Country = ? WHERE id = ?',
     [FirstName, LastName, Age, Country, id],
     (err,result) =>{
       if (err){
         console.log(err)
       }
       db.query(
-        "SELECT * FROM COMPANY_CUSTOMERS WHERE id = ?", // Replace 'ID' with the actual primary key column name if it's different
+        "SELECT * FROM company_customers WHERE id = ?", // Replace 'ID' with the actual primary key column name if it's different
         [result.insertId],
         (err, selectResult) => {
           if (err) {
@@ -80,7 +83,7 @@ app.post('/update-customer', (req,res) =>{
 
 app.get('/get-all-customers', (req, res) => {
   // SQL query to select all customers from the database
-  db.query('SELECT * FROM CUSTOMER_DB.COMPANY_CUSTOMERS', (error, results) => {
+  db.query('SELECT * FROM heroku_a4dd5bb9dfba4af.company_customers', (error, results) => {
     if (error) {
       // If there's an error, send a server error response
       return res.status(500).send('Error fetching customers');
@@ -97,7 +100,7 @@ app.get('/get-all-customers', (req, res) => {
 app.delete('/delete-customer'), (req, res) => {
   const id= req.body;
   console.log(id)
-  db.query('DELETE FROM CUSTOMER_DB.COMPANY_CUSTOMERS WHERE id =?',
+  db.query('DELETE FROM heroku_a4dd5bb9dfba4af.company_customers WHERE id =?',
   [id],
   (error, results) => {
     if (error) {
@@ -112,7 +115,7 @@ app.delete('/delete-customer'), (req, res) => {
 app.delete('/delete-customer', (req, res) => {
   const id = req.body.id;
   // Simulate deletion logic
-  db.query('DELETE FROM CUSTOMER_DB.COMPANY_CUSTOMERS WHERE id =?',
+  db.query('DELETE FROM heroku_a4dd5bb9dfba4af.company_customers WHERE id =?',
     [id],
     (error, results) => {
       if (error) {
