@@ -1,4 +1,6 @@
 import React from 'react'
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 export default function EditCustomerTable(props){
     const {
@@ -13,40 +15,52 @@ export default function EditCustomerTable(props){
     
       return (
           <form className="customer--form" onSubmit={props.handleUpdateSubmit}>
-          <input
+            <h1>Update Existing Customer</h1>
+          <TextField
             type="text"
             name="FirstName"
             placeholder="First Name"
             value={FirstName}
             onChange={handleChange}
+            variant="outlined"
+            sx={{ width: '50%',m: 0.5 }}
             required
           />
-          <input
+          <TextField
             type="text"
             name="LastName"
             value={LastName}
             placeholder="Last Name"
             onChange={handleChange}
+            variant="outlined"
+            sx={{ width: '50%',m: 0.5 }}
             required
           />
-          <input
+          <TextField
             type="number"
             name="Age"
             value={Age}
             placeholder="Age"
             onChange={handleChange}
+            variant="outlined"
+            sx={{ width: '50%',m: 0.5 }}
+            helperText="Enter number only"
             required
           />
-          <input
+          <TextField
             type="text"
             name="Country"
             value={Country}
             placeholder="Country"
             onChange={handleChange}
+            variant="outlined"
+            sx={{ width: '50%',m: 0.5 }}
             required
           />
-          
-          <button type="submit">Update Now</button>
+          <br/>
+          <Button variant="contained"
+        color="secondary"
+        type="submit">Update Now</Button>
         </form>
       )
   }
