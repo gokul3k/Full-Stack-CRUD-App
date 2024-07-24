@@ -15,10 +15,10 @@ app.use(cors({
 }));
 
 const db = mysql.createConnection({
-  host:"us-cluster-east-01.k8s.cleardb.net",
-  user:"b5b8b30e90da65",
-  password:"e6c39ac8",
-  database:"heroku_a4dd5bb9dfba4af"
+  user:"root",
+  host:"localhost",
+  password:"password",
+  database:"customer_db"
 });
 
 
